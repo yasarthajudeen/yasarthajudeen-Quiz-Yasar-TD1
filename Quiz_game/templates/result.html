@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Quiz Results</h1>
+        <ul>
+            {% for question_id, answer in answers.items() %}
+                <li><strong>Question {{ question_id }}:</strong> You selected <em>{{ answer }}</em></li>
+            {% endfor %}
+        </ul>
+        <a href="/">Take the Quiz Again</a>
+    </div>
+</body>
+</html>

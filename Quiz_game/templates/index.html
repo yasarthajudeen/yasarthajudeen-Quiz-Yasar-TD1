@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quiz Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Python Quiz!</h1>
+        <form method="POST">
+            {% for q in questions %}
+                <div class="question-container">
+                    <!-- Displaying the question text -->
+                    <p class="question-text">{{ q['question']['question'] }}</p>
+
+                    <!-- Displaying options -->
+                    {% for option in q['question']['options'] %}
+                        <label class="option">
+                            <input type="radio" name="question_{{ q['index'] }}" value="{{ option }}" required>
+                            {{ option }}
+                        </label><br>
+                    {% endfor %}
+
+                    <!-- Displaying Python code if available -->
+                    {% if '```' in q['question']['question'] %}
+                        <pre><code>{{ q['question']['question'] | replace('```', '') }}</code></pre>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Submit Answers</button>
+        </form>
+    </div>
+</body>
+</html>
