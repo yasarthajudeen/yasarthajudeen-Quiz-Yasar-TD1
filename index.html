@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Python Quiz</h1>
+        <form method="POST">
+            {% for q in questions %}
+                <div class="question-container">
+                    <!-- Display the question text -->
+                    <p class="question-text">
+                        {{ q.question['question'].replace("python", "").replace("", "") | safe }}
+                    </p>
+                    
+                    <!-- Render the code block, if present -->
+                    {% if "" in q.question['question'] %}
+                        <pre><code>{{ q.question['question'].split('')[1].strip() | safe }}</code></pre>
+                    {% endif %}
+                    
+                    <!-- Render the options -->
+                    <ul>
+                        {% for option in q.question['options'] %}
+                            <li>
+                                <label>
+                                    <input type="radio" name="question_{{ q.index }}" value="{{ option }}" required>
+                                    {{ option }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
