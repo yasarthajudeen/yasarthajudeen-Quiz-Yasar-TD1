@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Results</h1>
+        <p><strong>Score:</strong> {{ score }} / {{ total }}</p>
+        
+        <div class="results-container">
+            {% for result in results %}
+                <div class="result-item">
+                    <p><strong>Question:</strong> {{ result.question }}</p>
+                    <p><strong>Your Answer:</strong> {{ result.user_answer }}</p>
+                    <p><strong>Correct Answer:</strong> {{ result.correct_answer }}</p>
+                    {% if result.is_correct %}
+                        <p class="correct">Correct!</p>
+                    {% else %}
+                        <p class="incorrect">Incorrect</p>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="retry-btn">Retry Quiz</a>
+    </div>
+</body>
+</html>
